@@ -8,7 +8,7 @@ script:
   - echo 'include "/usr/share/themes/Adwaita/gtk-2.0/gtkrc"' > AppDir/usr/share/gtk-2.0/gtkrc
   # Install chirp into the AppDir
   - git clone --depth=1 https://github.com/kk7ds/chirp | true
-  - cd chirp; python2.7 setup.py install --prefix=/usr --root=../AppDir
+  - cd chirp; git pull; python2.7 setup.py install --prefix=/usr --root=../AppDir
 
 
 AppDir:
