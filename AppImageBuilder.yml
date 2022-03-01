@@ -1,0 +1,70 @@
+version: 1
+script:
+  # Remove any previous build
+  - rm -rf AppDir  | true
+  # Create gtk dir for next step
+  - mkdir -p AppDir/usr/share/gtk-2.0/
+  # Set the default theme to Adwaita, like flatpak does
+  - echo 'include "/usr/share/themes/Adwaita/gtk-2.0/gtkrc"' > AppDir/usr/share/gtk-2.0/gtkrc
+  - |
+    cd chirp/
+    # Install chirp into the AppDir
+    python2.7 setup.py install --prefix=/usr --root=../AppDir
+    # https://github.com/AppImageCrafters/appimage-builder/pull/186
+    mkdir ${APPDIR}/usr/share/pixmaps/255x104/
+    cp share/chirp.png ${APPDIR}/usr/share/pixmaps/255x104/chirp.png
+
+AppDir:
+  path: ./AppDir
+
+  app_info:
+    id: com.danplanet.chirp
+    name: Chirp
+    icon: chirp
+    version: ${CHIRP_VERSION}
+    exec: usr/bin/python2.7
+    exec_args: "$APPDIR/usr/bin/chirpw $@"
+
+  apt:
+    arch: ${TARGET_ARCH_APT}
+    sources:
+      - sourceline: ${SOURCE_LINE_1}
+        key_url: ${KEY_URL_1}
+      - sourceline: ${SOURCE_LINE_2}
+        key_url: ${KEY_URL_2}
+
+    include:
+      - python-cairo
+      - python-gobject-2
+      - python-gtk2
+      - python-serial
+      - python-future
+      - python-suds
+      - python2.7
+      - libxml2
+      - gnome-themes-extra
+      - adwaita-icon-theme
+    exclude:
+      - libicu60
+      - humanity-icon-theme
+
+  files:
+    exclude:
+      - usr/lib/x86_64-linux-gnu/gconv
+      - usr/share/man
+      - usr/share/doc/
+      - usr/include
+      - usr/share/icons/ubuntu-mono-*
+
+  runtime:
+    path_mappings:
+      - /usr/share/gtk-2.0/:$APPDIR/usr/share/gtk-2.0/
+    env:
+      PYTHONHOME: '${APPDIR}/usr'
+      PYTHONPATH: '${APPDIR}/usr/lib/python2.7/site-packages'
+
+AppImage:
+  sign-key: None
+  # https://github.com/AppImage/AppImageKit/releases/
+  arch: ${TARGET_ARCH_APPIMAGE}
+

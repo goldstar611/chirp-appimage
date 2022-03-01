@@ -1,0 +1,15 @@
+
+# Ignore the staging dir
+AppDir/
+# Ignore the build dir
+build/
+# Ignore the chirp repo
+chirp/
+# Ignore the apt cache
+appimage-builder-cache/
+# Ignore the appimage builder tool
+appimagetool
+# Ignore intermediate appimage files
+*.zsync
+# Ignore actual appimage binary
+*.AppImage
