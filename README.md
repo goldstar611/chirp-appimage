@@ -9,7 +9,7 @@ You will need
 From the [tutorial](https://appimage-builder.readthedocs.io/en/latest/intro/install.html), 
 you can get both tools by running the following commands in a command prompt.
 ```
-sudo apt install git python3-pip python3-setuptools patchelf desktop-file-utils libgdk-pixbuf2.0-dev fakeroot strace fuse
+sudo apt install git python2.7-minimal python3-pip python3-setuptools patchelf desktop-file-utils libgdk-pixbuf2.0-dev fakeroot strace fuse
 
 # Install appimagetool AppImage
 sudo wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage -O /usr/local/bin/appimagetool
