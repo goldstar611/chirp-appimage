@@ -8,7 +8,14 @@ script:
   - echo 'include "/usr/share/themes/Adwaita/gtk-2.0/gtkrc"' > AppDir/usr/share/gtk-2.0/gtkrc
   # Install chirp into the AppDir
   - git clone --depth=1 https://github.com/kk7ds/chirp | true
-  - cd chirp; python2.7 setup.py install --prefix=/usr --root=../AppDir
+  - |
+    cd chirp
+    git pull
+    LATEST_COMMIT_DATE=$(git log -1 --date=format:"%Y%m%d" --format="%ad")
+    LATEST_COMMIT_SHORT=$(git rev-parse --short HEAD)
+    CHIRP_VERSION="chirp-daily-${LATEST_COMMIT_DATE}+${LATEST_COMMIT_SHORT}"
+    sed -i "s/CHIRP_VERSION = \".*\"/CHIRP_VERSION = \"${CHIRP_VERSION}\"/" chirp/__init__.py
+    python2.7 setup.py install --prefix=/usr --root=../AppDir
 
 
 AppDir:
