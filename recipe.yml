@@ -41,17 +41,17 @@ AppDir:
       - sourceline: 'deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ xenial main restricted universe multiverse'
         key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3b4fe6acc0b21f32'
 
-    arch: arm64
-    sources:
-      - sourceline: 'deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports bionic main'
-      - sourceline: 'deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports xenial main'
-        key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3b4fe6acc0b21f32'
+    #arch: arm64
+    #sources:
+    #  - sourceline: 'deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports bionic main'
+    #  - sourceline: 'deb [arch=arm64] http://ports.ubuntu.com/ubuntu-ports xenial main'
+    #    key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3b4fe6acc0b21f32'
 
-    arch: armhf
-    sources:
-      - sourceline: 'deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports bionic main'
-      - sourceline: 'deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports xenial main'
-        key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3b4fe6acc0b21f32'
+    #arch: armhf
+    #sources:
+    #  - sourceline: 'deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports bionic main'
+    #  - sourceline: 'deb [arch=armhf] http://ports.ubuntu.com/ubuntu-ports xenial main'
+    #    key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3b4fe6acc0b21f32'
 
     include:
       - python-cairo
@@ -86,7 +86,7 @@ AppDir:
 AppImage:
   sign-key: None
   # https://github.com/AppImage/AppImageKit/releases/
-  #arch: x86_64
+  arch: x86_64
   #arch: aarch64
-  arch: armhf
+  #arch: armhf
 
