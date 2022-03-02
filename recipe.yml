@@ -10,13 +10,18 @@ script:
   - git clone --depth=1 https://github.com/kk7ds/chirp | true
   - |
     cd chirp
+    # Update chirp repository
     git pull
+    # Update in-app version
     LATEST_COMMIT_DATE=$(git log -1 --date=format:"%Y%m%d" --format="%ad")
     LATEST_COMMIT_SHORT=$(git rev-parse --short HEAD)
-    CHIRP_VERSION="chirp-daily-${LATEST_COMMIT_DATE}+${LATEST_COMMIT_SHORT}"
+    CHIRP_VERSION="daily-${LATEST_COMMIT_DATE}+${LATEST_COMMIT_SHORT}"
     sed -i "s/CHIRP_VERSION = \".*\"/CHIRP_VERSION = \"${CHIRP_VERSION}\"/" chirp/__init__.py
+    # Install chirp
     python2.7 setup.py install --prefix=/usr --root=../AppDir
-
+    # https://github.com/AppImageCrafters/appimage-builder/pull/186
+    mkdir ${APPDIR}/usr/share/pixmaps/255x104/
+    cp share/chirp.png ${APPDIR}/usr/share/pixmaps/255x104/chirp.png
 
 AppDir:
   path: ./AppDir
@@ -24,7 +29,7 @@ AppDir:
   app_info:
     id: com.danplanet.chirp
     name: Chirp
-    icon: utilities-terminal # FIXME
+    icon: chirp
     version: 0.1.0           # FIXME
     exec: usr/bin/python2.7
     exec_args: "$APPDIR/usr/bin/chirpw $@"
