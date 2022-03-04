@@ -40,7 +40,7 @@ AppDir:
       - python-serial
       - python-future
       - python-suds
-      - python2.7
+      - python2.7-minimal
       - libxml2
       - gnome-themes-extra
       - adwaita-icon-theme
