@@ -1,5 +1,5 @@
 
-## Pre built binaries
+# Pre built binaries
 I would love to get feedback on these AppImages. If you aren't able to build from scratch you can still help test using the prebuilt binaries.
 
 https://github.com/goldstar611/chirp-appimage/releases/tag/02Mar2022
@@ -9,6 +9,15 @@ https://github.com/goldstar611/chirp-appimage/releases/tag/02Mar2022
 - `x86-64.AppImage` for Intel/AMD running any 64-bit OS
 - `i686.AppImage` for Intel/AMD running any 32-bit OS
 
+## Running the binary
+You need to mark the AppImage file as executable first
+```
+chmod +x Chirp-daily-*-*.AppImage
+```
+Then run the AppImage by double clicking on it from your GUI files manager or in a command prompt
+```
+./Chirp-daily-20220227+799d07a-x86_64.AppImage
+```
 
 # chirp-appimage
 AppImage Recipe for Chirp
