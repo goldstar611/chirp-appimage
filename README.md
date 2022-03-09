@@ -31,7 +31,7 @@ From the [tutorial](https://appimage-builder.readthedocs.io/en/latest/intro/inst
 you can get the build tools by running the following commands in a command prompt on Debian/Ubuntu/LinuxMint:
 ```
 # Install build dependencies
-sudo apt install git python2.7-minimal python3-pip python3-setuptools patchelf desktop-file-utils libgdk-pixbuf2.0-dev fakeroot strace fuse
+sudo apt install git python2.7-minimal python3-pip patchelf fakeroot strace fuse
 
 # Install appimagetool
 arch=$(uname -m)
