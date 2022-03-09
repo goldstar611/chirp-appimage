@@ -6,9 +6,7 @@ rm -f Chirp-*-*.AppImage
 git clone --depth=1 https://github.com/kk7ds/chirp | true
 cd chirp
   git pull
-  LATEST_COMMIT_DATE=$(git log -1 --date=format:"%Y%m%d" --format="%ad")
-  LATEST_COMMIT_SHORT=$(git rev-parse --short HEAD)
-  export CHIRP_VERSION="daily-${LATEST_COMMIT_DATE}+${LATEST_COMMIT_SHORT}"
+  export CHIRP_VERSION="$(date +%Y%m%d)"
   # Update in-app version
   sed -i "s/CHIRP_VERSION = \".*\"/CHIRP_VERSION = \"${CHIRP_VERSION}\"/" chirp/__init__.py
   # No need to import chirp or chirp.drivers on a linux build
