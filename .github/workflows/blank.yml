@@ -38,8 +38,6 @@ jobs:
     
       - name: Build AppImage
         run: |
-          git clone https://github.com/goldstar611/chirp-appimage
-          cd chirp-appimage/
           chmod +x ./build.sh
           ./build.sh
 
@@ -48,4 +46,4 @@ jobs:
         with:
           tag_name: ${{steps.set_version.outputs.version}}
           files: |
-            chirp-appimage/Chirp-daily-*.AppImage
+            Chirp-daily-*.AppImage
