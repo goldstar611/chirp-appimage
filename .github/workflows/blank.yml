@@ -38,6 +38,8 @@ jobs:
     
       - name: Build AppImage
         run: |
+          # Set timezone to America/Los_Angeles so the build date is aligned with official builds
+          sudo sudo ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
           chmod +x ./build.sh
           ./build.sh
 
