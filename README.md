@@ -34,8 +34,9 @@ you can get the build tools by running the following commands in a command promp
 sudo apt install git python2.7-minimal gettext python3-pip patchelf fakeroot strace fuse
 
 # Install appimagetool
-arch=$(uname -m)
+arch=$(uname -m)  
 if [ "${arch}" = "armv7l" ]; then arch="armhf"; fi  # Raspberry pi fix
+if [ "${arch}" = "armv6l" ]; then arch="armhf"; fi  # Raspberry pi 0 fix
 sudo wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-${arch}.AppImage -O /usr/local/bin/appimagetool
 sudo chmod +x /usr/local/bin/appimagetool
 
