@@ -23,6 +23,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
       
+      - name: Set Timezone
+        run: |
+          # Set timezone to America/Los_Angeles so the build date is aligned with official builds
+          sudo sudo ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
+      
       - name: Install dependencies
         run: |
           sudo apt-get update && sudo apt-get install -y git python2.7-minimal python3-pip python3-setuptools patchelf fakeroot gettext
@@ -38,8 +43,6 @@ jobs:
     
       - name: Build AppImage
         run: |
-          # Set timezone to America/Los_Angeles so the build date is aligned with official builds
-          sudo sudo ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
           chmod +x ./build.sh
           ./build.sh
 
