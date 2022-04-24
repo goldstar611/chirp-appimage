@@ -2,7 +2,7 @@
 # Pre built binaries
 I would love to get feedback on these AppImages. If you aren't able to build from scratch you can still help test using the prebuilt binaries.
 
-https://github.com/goldstar611/chirp-appimage/releases/tag/02Mar2022
+https://github.com/goldstar611/chirp-appimage/releases
 
 - `aarch64.AppImage` for Pi4B, Pi3B & Pi3B+, and Pi Zero W2, running 64-bit OS
 - `armhf.AppImage` for any Pi running a 32-bit OS
