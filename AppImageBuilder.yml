@@ -11,7 +11,7 @@ script:
     # Install chirp into the AppDir
     python2.7 setup.py install --prefix=/usr --root=../AppDir
     # https://github.com/AppImageCrafters/appimage-builder/pull/186
-    mkdir ${APPDIR}/usr/share/pixmaps/255x104/
+    # mkdir ${APPDIR}/usr/share/pixmaps/255x104/
     cp share/chirp.png ${APPDIR}/usr/share/pixmaps/255x104/chirp.png
 
 AppDir:
