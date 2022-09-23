@@ -16,6 +16,6 @@ chmod +x Chirp-daily-*-*.AppImage
 ```
 Then run the AppImage by double clicking on it from your GUI files manager or in a command prompt
 ```
-./Chirp-daily-20220227+799d07a-x86_64.AppImage
+./Chirp-daily-*-x86_64.AppImage
 ```
 
