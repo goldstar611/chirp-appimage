@@ -13,7 +13,7 @@ script:
     # https://github.com/AppImageCrafters/appimage-builder/pull/186
     mkdir -p ${APPDIR}/usr/share/pixmaps/255x104/
     cp share/chirp.png ${APPDIR}/usr/share/pixmaps/255x104/chirp.png
-    patch -p1 --directory=${APPDIR}/usr/lib/*/gdk-pixbuf-2.0/2.10.0 < loaders.cache.patch
+    patch -p1 --directory=${APPDIR}/usr/lib/*/gdk-pixbuf-2.0/2.10.0 < ../loaders.cache.patch
 
 AppDir:
   path: ./AppDir
