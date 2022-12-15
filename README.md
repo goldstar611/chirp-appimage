@@ -1,6 +1,5 @@
 
 # Pre built binaries
-I would love to get feedback on these AppImages. If you aren't able to build from scratch you can still help test using the prebuilt binaries.
 
 https://github.com/goldstar611/chirp-appimage/releases
 
