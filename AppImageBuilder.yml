@@ -30,6 +30,7 @@ AppDir:
       - python3-requests
       - python3-serial
       - python3-six
+      - python3-suds
       - python3-future
       - python3-yattag
       - python3-importlib-resources
