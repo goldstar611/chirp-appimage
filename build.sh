@@ -14,31 +14,24 @@ cd chirp
   sed -i "s/^import chirp$//" setup.py
 cd ..
 
-# i386 (32-bit Intel/AMD)
-export TARGET_ARCH_APT=i386
-export TARGET_ARCH_APPIMAGE=i686
-export SOURCE_LINE_1="deb [arch=${TARGET_ARCH_APT}] http://archive.ubuntu.com/ubuntu/ bionic main universe"
-export KEY_URL_1="http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3b4fe6acc0b21f32"
-appimage-builder --recipe AppImageBuilder.yml
-
 # x86_64 (64-bit Intel/AMD)
 export TARGET_ARCH_APT=amd64
 export TARGET_ARCH_APPIMAGE=x86_64
-export SOURCE_LINE_1="deb [arch=${TARGET_ARCH_APT}] http://archive.ubuntu.com/ubuntu/ bionic main universe"
-export KEY_URL_1="http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3b4fe6acc0b21f32"
+export SOURCE_LINE_1="deb [arch=${TARGET_ARCH_APT}] http://archive.ubuntu.com/ubuntu jammy main universe"
+export KEY_URL_1="http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x871920D1991BC93C"
 appimage-builder --recipe AppImageBuilder.yml
 
 # armhf (32-bit ARM)
 export TARGET_ARCH_APT=armhf
 export TARGET_ARCH_APPIMAGE=armhf
-export SOURCE_LINE_1="deb [arch=${TARGET_ARCH_APT}] http://ports.ubuntu.com/ubuntu-ports bionic main universe"
-export KEY_URL_1="http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3b4fe6acc0b21f32"
+export SOURCE_LINE_1="deb [arch=${TARGET_ARCH_APT}] http://ports.ubuntu.com/ubuntu-ports jammy main universe"
+export KEY_URL_1="http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x871920D1991BC93C"
 appimage-builder --recipe AppImageBuilder.yml
 
 # arm64/aarch64 (64-bit ARM)
 export TARGET_ARCH_APT=arm64
 export TARGET_ARCH_APPIMAGE=aarch64
-export SOURCE_LINE_1="deb [arch=${TARGET_ARCH_APT}] http://ports.ubuntu.com/ubuntu-ports bionic main universe"
-export KEY_URL_1="http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x3b4fe6acc0b21f32"
+export SOURCE_LINE_1="deb [arch=${TARGET_ARCH_APT}] http://ports.ubuntu.com/ubuntu-ports jammy main universe"
+export KEY_URL_1="http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x871920D1991BC93C"
 appimage-builder --recipe AppImageBuilder.yml
 

@@ -8,21 +8,17 @@ AppDir:
   
   after_bundle:
     - |
+      cp chirp/chirp/share/chirp.png AppDir/usr/share/icons/
       cd chirp/
-      python2.7 setup.py install --prefix=/usr --root=../AppDir
+      python3 setup.py install --prefix=/usr --root=../AppDir
       
-  after_runtime:
-    - mkdir -p $TARGET_APPDIR/usr/share/gtk-2.0
-    - echo include \"/usr/share/themes/Adwaita/gtk-2.0/gtkrc\" > $TARGET_APPDIR/usr/share/gtk-2.0/gtkrc
-    - cp loaders.cache $TARGET_APPDIR/usr/lib/*/gdk-pixbuf-2.0/2.10.0/loaders.cache
-
   app_info:
     id: com.danplanet.chirp
     name: Chirp
     icon: chirp
     version: ${CHIRP_VERSION}
-    exec: usr/bin/python2.7
-    exec_args: "$APPDIR/usr/bin/chirpw $@"
+    exec: usr/bin/python3
+    exec_args: "$APPDIR/usr/bin/chirp"
 
   apt:
     arch: ${TARGET_ARCH_APT}
@@ -31,25 +27,25 @@ AppDir:
         key_url: ${KEY_URL_1}
 
     include:
-      - python-cairo
-      - python-gobject-2
-      - python-gtk2
-      - python-serial
-      - python-future
-      - python-suds
-      - python2.7-minimal
-      - libxml2
-      - gnome-themes-extra
-      - adwaita-icon-theme
+      - python3-requests
+      - python3-serial
+      - python3-six
+      - python3-future
+      - python3-yattag
+      - python3-importlib-resources
+      - python3-wxgtk4.0
       - fontconfig
       - fontconfig-config
-      - appmenu-gtk2-module
-      - libcanberra-gtk-module
-      - libgail-common
-      - libatk-adaptor
+      - libcanberra-gtk3-module
+      - appmenu-gtk3-module
+      - librsvg2-common
+      - locales
     exclude:
       - libicu60
       - humanity-icon-theme
+      - adwaita-icon-theme
+      - perl
+      - python3-numpy
 
   files:
     exclude:
@@ -58,10 +54,11 @@ AppDir:
       - usr/share/doc/
       - usr/include
       - usr/share/icons/ubuntu-mono-*
+      - usr/share/icons/hicolor
+      - usr/bin/openssl
 
   runtime:
     path_mappings:
-      - /usr/share/gtk-2.0/:$APPDIR/usr/share/gtk-2.0/
       - /usr/share/themes/:$APPDIR/usr/share/themes/
       - /usr/share/icons/:$APPDIR/usr/share/icons/
       - /etc/fonts/:$APPDIR/etc/fonts/
@@ -70,7 +67,7 @@ AppDir:
 
     env:
       PYTHONHOME: $APPDIR/usr
-      PYTHONPATH: $APPDIR/usr/lib/python2.7/site-packages
+      PYTHONPATH: $APPDIR/usr/lib/python3.10/site-packages
       XDG_DATA_DIRS: $APPDIR/share:$XDG_DATA_DIRS
       FONTCONFIG_FILE: $APPDIR/etc/fonts/fonts.conf
       FONTCONFIG_PATH: $APPDIR/etc/fonts
