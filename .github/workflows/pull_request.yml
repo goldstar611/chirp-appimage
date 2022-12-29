@@ -27,7 +27,7 @@ jobs:
       
       - name: Install dependencies
         run: |
-          sudo apt-get update && sudo apt-get install -y git python2.7-minimal python3-pip python3-setuptools patchelf fakeroot gettext
+          sudo apt-get update && sudo apt-get install -y git python3-pip python3-setuptools patchelf fakeroot gettext
           sudo -H pip3 install appimage-builder
           arch=$(uname -m)
           sudo wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-${arch}.AppImage -O /usr/bin/appimagetool
