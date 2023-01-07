@@ -9,7 +9,10 @@ AppDir:
   after_bundle:
     - |
       cp chirp/chirp/share/chirp.png AppDir/usr/share/icons/
-      python3 -m pip install chirp/ --prefix=/usr --root=AppDir
+      cd chirp/
+      python3 setup.py install --prefix=/usr --root=../AppDir
+      python3 -m pip install importlib-resources --prefix=/usr --root=../AppDir
+      
       
   app_info:
     id: com.danplanet.chirp
