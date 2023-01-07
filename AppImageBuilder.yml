@@ -1,7 +1,7 @@
 version: 1
 script:
   # Remove any previous build
-  - rm -rf AppDir  | true
+  - rm -rf AppDir
 
 AppDir:
   path: ./AppDir
@@ -9,8 +9,7 @@ AppDir:
   after_bundle:
     - |
       cp chirp/chirp/share/chirp.png AppDir/usr/share/icons/
-      cd chirp/
-      python3 setup.py install --prefix=/usr --root=../AppDir
+      python3 -m pip install chirp/ --prefix=/usr --root=AppDir
       
   app_info:
     id: com.danplanet.chirp
@@ -33,14 +32,11 @@ AppDir:
       - python3-suds
       - python3-future
       - python3-yattag
-      - python3-importlib-resources
       - python3-wxgtk4.0
       - fontconfig
       - fontconfig-config
       - libcanberra-gtk3-module
       - appmenu-gtk3-module
-      - librsvg2-common
-      - locales
     exclude:
       - libicu60
       - humanity-icon-theme
@@ -68,7 +64,7 @@ AppDir:
 
     env:
       PYTHONHOME: $APPDIR/usr
-      PYTHONPATH: $APPDIR/usr/lib/python3.10/site-packages
+      PYTHONPATH: $APPDIR/usr/lib/python3/dist-packages:$APPDIR/usr/lib/python3.8/site-packages
       XDG_DATA_DIRS: $APPDIR/share:$XDG_DATA_DIRS
       FONTCONFIG_FILE: $APPDIR/etc/fonts/fonts.conf
       FONTCONFIG_PATH: $APPDIR/etc/fonts

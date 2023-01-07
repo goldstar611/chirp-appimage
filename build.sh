@@ -4,6 +4,10 @@ set -xe
 rm -f Chirp-*-*.AppImage
 
 git clone --depth=1 https://github.com/kk7ds/chirp | true
+
+# Hot patch since print preview is preventing CHIRP from loading
+sed -i 's/(self._print_preview_item, is_memedit),//g' chirp/chirp/wxui/main.py
+
 cd chirp
   git pull
   export CHIRP_VERSION="daily-$(date +%Y%m%d)"
@@ -17,21 +21,21 @@ cd ..
 # x86_64 (64-bit Intel/AMD)
 export TARGET_ARCH_APT=amd64
 export TARGET_ARCH_APPIMAGE=x86_64
-export SOURCE_LINE_1="deb [arch=${TARGET_ARCH_APT}] http://archive.ubuntu.com/ubuntu jammy main universe"
+export SOURCE_LINE_1="deb [arch=${TARGET_ARCH_APT}] http://archive.ubuntu.com/ubuntu focal main universe"
 export KEY_URL_1="http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x871920D1991BC93C"
 appimage-builder --recipe AppImageBuilder.yml
 
 # armhf (32-bit ARM)
 export TARGET_ARCH_APT=armhf
 export TARGET_ARCH_APPIMAGE=armhf
-export SOURCE_LINE_1="deb [arch=${TARGET_ARCH_APT}] http://ports.ubuntu.com/ubuntu-ports jammy main universe"
+export SOURCE_LINE_1="deb [arch=${TARGET_ARCH_APT}] http://ports.ubuntu.com/ubuntu-ports focal main universe"
 export KEY_URL_1="http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x871920D1991BC93C"
 appimage-builder --recipe AppImageBuilder.yml
 
 # arm64/aarch64 (64-bit ARM)
 export TARGET_ARCH_APT=arm64
 export TARGET_ARCH_APPIMAGE=aarch64
-export SOURCE_LINE_1="deb [arch=${TARGET_ARCH_APT}] http://ports.ubuntu.com/ubuntu-ports jammy main universe"
+export SOURCE_LINE_1="deb [arch=${TARGET_ARCH_APT}] http://ports.ubuntu.com/ubuntu-ports focal main universe"
 export KEY_URL_1="http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x871920D1991BC93C"
 appimage-builder --recipe AppImageBuilder.yml
 
