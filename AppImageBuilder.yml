@@ -29,7 +29,7 @@ AppDir:
         key_url: ${KEY_URL_1}
 
     include:
-      - python3-importlib-resources
+      #- python3-importlib-resources
       - python3-requests
       - python3-serial
       - python3-six
