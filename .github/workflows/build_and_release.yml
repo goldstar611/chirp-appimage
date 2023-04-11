@@ -52,4 +52,4 @@ jobs:
         with:
           tag_name: ${{steps.set_version.outputs.version}}
           files: |
-            Chirp-daily-*.AppImage
+            Chirp-*.AppImage
