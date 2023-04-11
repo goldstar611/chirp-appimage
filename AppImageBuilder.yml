@@ -29,6 +29,7 @@ AppDir:
         key_url: ${KEY_URL_1}
 
     include:
+      - python3-importlib-resources
       - python3-requests
       - python3-serial
       - python3-six
@@ -56,6 +57,24 @@ AppDir:
       - usr/share/icons/ubuntu-mono-*
       - usr/share/icons/hicolor
       - usr/bin/openssl
+      - usr/bin/fc*
+      - usr/sbin/tzconfig
+      - usr/sbin/update-mime
+      - usr/sbin/update-ca-certificates
+      - usr/bin/run-mailcap
+      - usr/bin/cautious-launcher
+      - usr/bin/c_rehash
+      - usr/bin/see
+      - usr/bin/compose
+      - usr/bin/print
+      - usr/bin/edit
+      - usr/share/python3/runtime.d/public_modules.rtremove
+      - usr/share/python3/runtime.d/public_modules.rtinstall
+      - usr/lib/x86_64-linux-gnu/glib-2.0/gio-launch-desktop
+      - usr/lib/ssl/misc/tsget.pl
+      - usr/lib/ssl/misc/tsget
+      - usr/lib/ssl/misc/CA.pl
+      - usr/lib/mime/debian-view
 
   runtime:
     path_mappings:
@@ -67,7 +86,7 @@ AppDir:
 
     env:
       PYTHONHOME: $APPDIR/usr
-      PYTHONPATH: $APPDIR/usr/lib/python3/dist-packages:$APPDIR/usr/lib/python3.8/site-packages
+      PYTHONPATH: $APPDIR/usr/lib/python3/dist-packages:$APPDIR/usr/lib/python3.8/site-packages:$APPDIR/usr/lib/python3.10/site-packages
       XDG_DATA_DIRS: $APPDIR/share:$XDG_DATA_DIRS
       FONTCONFIG_FILE: $APPDIR/etc/fonts/fonts.conf
       FONTCONFIG_PATH: $APPDIR/etc/fonts
