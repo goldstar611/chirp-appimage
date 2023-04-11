@@ -30,6 +30,7 @@ AppDir:
 
     include:
       #- python3-importlib-resources
+      - python3-zipp
       - python3-requests
       - python3-serial
       - python3-six
