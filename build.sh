@@ -10,7 +10,7 @@ sed -i 's/(self._print_preview_item, is_memedit),//g' chirp/chirp/wxui/main.py
 
 cd chirp
   git pull
-  export CHIRP_VERSION="daily-$(date +%Y%m%d)"
+  export CHIRP_VERSION="next-$(date +%Y%m%d)"
   # Update in-app version
   sed -i "s/CHIRP_VERSION = \".*\"/CHIRP_VERSION = \"${CHIRP_VERSION}\"/" chirp/__init__.py
   # No need to import chirp or chirp.drivers on a linux build
