@@ -3,7 +3,7 @@ set -xe
 
 rm -f Chirp-*-*.AppImage
 
-git clone --depth=1 https://github.com/kk7ds/chirp | true
+git clone --depth=1 https://github.com/kk7ds/chirp
 
 cd chirp
   git pull
