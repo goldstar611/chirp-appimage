@@ -5,9 +5,6 @@ rm -f Chirp-*-*.AppImage
 
 git clone --depth=1 https://github.com/kk7ds/chirp | true
 
-# Hot patch since print preview is preventing CHIRP from loading
-sed -i 's/(self._print_preview_item, is_memedit),//g' chirp/chirp/wxui/main.py
-
 cd chirp
   git pull
   export CHIRP_VERSION="next-$(date +%Y%m%d)"
