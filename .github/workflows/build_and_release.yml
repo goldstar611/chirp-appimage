@@ -1,33 +1,24 @@
-# This is a basic workflow to help you get started with Actions
-
 name: build_and_release
 
-# Controls when the workflow will run
 on:
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
   # Allows Dan to trigger synchronization,
   # which then triggers snaps to build
   repository_dispatch:
     types: dan-says-build
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-20.04
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-      
+      - uses: actions/checkout@v3
+
       - name: Set Timezone
         run: |
           # Set timezone to America/Los_Angeles so the build date is aligned with official builds
           sudo sudo ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
-      
+
       - name: Install dependencies
         run: |
           sudo apt-get update && sudo apt-get install -y git python3-pip python3-setuptools patchelf fakeroot gettext
@@ -37,19 +28,23 @@ jobs:
           sudo wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-${arch}.AppImage -O /usr/bin/appimagetool
           sudo chmod +x /usr/bin/appimagetool
 
-      - name: "Set release version"
-        id: set_version
-        run: |
-          echo "::set-output name=version::$(date +%Y%m%d)"
-    
       - name: Build AppImage
         run: |
           chmod +x ./build.sh
           ./build.sh
 
       - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          tag_name: ${{steps.set_version.outputs.version}}
-          files: |
-            Chirp-*.AppImage
+        env:
+          GH_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          artifacts=Chirp-*.AppImage
+          tag=$(date +%Y%m%d)
+
+          git log -5 > last_5_commits.txt
+          gh release create --latest ${tag} -F last_5_commits.txt ${artifacts}
+
+          if(!($?)) {
+            # gh release create failed, try gh release upload instead
+            gh release upload --clobber ${tag} ${artifacts}
+          }
