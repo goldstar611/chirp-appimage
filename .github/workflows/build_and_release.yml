@@ -41,10 +41,10 @@ jobs:
           artifacts=Chirp-*.AppImage
           tag=$(date +%Y%m%d)
 
-          git log -5 > last_5_commits.txt
+          (cd chirp; git log -5 > ../last_5_commits.txt)
           gh release create --latest ${tag} -F last_5_commits.txt ${artifacts}
 
-          if(!($?)) {
-            # gh release create failed, try gh release upload instead
-            gh release upload --clobber ${tag} ${artifacts}
-          }
+          #if(!($?)) {
+          #  # gh release create failed, try gh release upload instead
+          #  gh release upload --clobber ${tag} ${artifacts}
+          #}
