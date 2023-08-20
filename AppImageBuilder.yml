@@ -80,6 +80,7 @@ AppDir:
 
   runtime:
     path_mappings:
+      - /usr/share/glib-2.0/schemas/:$APPDIR/usr/share/glib-2.0/schemas/
       - /usr/share/themes/:$APPDIR/usr/share/themes/
       - /usr/share/icons/:$APPDIR/usr/share/icons/
       - /etc/fonts/:$APPDIR/etc/fonts/
