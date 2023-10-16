@@ -42,7 +42,7 @@ jobs:
           tag=$(date +%Y%m%d)
 
           (cd chirp; git log -5 > ../last_5_commits.txt)
-          gh release create --latest ${tag} -F last_5_commits.txt ${artifacts}
+          gh release create --latest ${tag} -t ${tag} -F last_5_commits.txt ${artifacts}
 
           #if(!($?)) {
           #  # gh release create failed, try gh release upload instead
