@@ -98,4 +98,4 @@ AppImage:
   sign-key: None
   # https://github.com/AppImage/AppImageKit/releases/
   arch: ${TARGET_ARCH_APPIMAGE}
-
+  comp: xz
