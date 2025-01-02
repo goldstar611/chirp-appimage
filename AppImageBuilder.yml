@@ -32,6 +32,7 @@ AppDir:
       #- python3-importlib-resources
       - python3-zipp
       - librsvg2-common
+      - python3-lark
       - python3-requests
       - python3-serial
       - python3-six
