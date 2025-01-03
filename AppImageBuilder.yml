@@ -8,11 +8,8 @@ AppDir:
   
   after_bundle:
     - |
-      cp chirp/chirp/share/chirp.png AppDir/usr/share/icons/
-      cd chirp/
-      python3 setup.py install --prefix=/usr --root=../AppDir
-      python3 -m pip install importlib-resources --prefix=/usr --root=../AppDir
-      
+      python3 -m pip install chirp-*.whl --ignore-installed --prefix=/usr --root=./AppDir
+      cp AppDir/usr/local/lib/python3.10/dist-packages/chirp/share/chirp.png AppDir/usr/share/icons/
       
   app_info:
     id: com.danplanet.chirp
@@ -20,7 +17,7 @@ AppDir:
     icon: chirp
     version: ${CHIRP_VERSION}
     exec: usr/bin/python3
-    exec_args: "$APPDIR/usr/bin/chirp"
+    exec_args: "$APPDIR/usr/local/bin/chirp"
 
   apt:
     arch: ${TARGET_ARCH_APT}
@@ -29,16 +26,7 @@ AppDir:
         key_url: ${KEY_URL_1}
 
     include:
-      #- python3-importlib-resources
-      - python3-zipp
       - librsvg2-common
-      - python3-lark
-      - python3-requests
-      - python3-serial
-      - python3-six
-      - python3-suds
-      - python3-future
-      - python3-yattag
       - python3-wxgtk4.0
       - fontconfig
       - fontconfig-config
