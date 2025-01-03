@@ -32,6 +32,7 @@ AppDir:
       - fontconfig-config
       - libcanberra-gtk3-module
       - appmenu-gtk3-module
+      - libwayland-client0  # https://github.com/goldstar611/chirp-appimage/issues/7
     exclude:
       - libicu60
       - humanity-icon-theme
