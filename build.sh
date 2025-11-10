@@ -3,7 +3,14 @@ set -xe
 
 rm -f Chirp-*-*.AppImage
 
-ver_with_next=$(basename $(curl -L -s -o /dev/null -w '%{url_effective}' "https://archive.chirpmyradio.com/download?stream=next"))
+if [[ -z "${GITHUB_WORKSPACE}" ]]; then
+  # Use curl if not github.com actions not detected
+  ver_with_next=$(basename $(curl -L -s -o /dev/null -w '%{url_effective}' "https://archive.chirpmyradio.com/download?stream=next"))
+else
+  # If github.com actions is detected, use the scriptable console-based lynx browser
+  ver_with_next=$(basename $(lynx -dump -noredir -head "https://archive.chirpmyradio.com/download?stream=next" | grep -E -o 'https://.*chirp.*$'))
+fi
+
 ver_without_next=${ver_with_next//next-/}
 export CHIRP_VERSION=${ver_with_next}
 curl -o chirp-${ver_without_next}-py3-none-any.whl https://archive.chirpmyradio.com/chirp_next/${ver_with_next}/chirp-${ver_without_next}-py3-none-any.whl
