@@ -20,7 +20,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo apt-get update && sudo apt-get install -y git python3-pip patchelf fakeroot gettext
+          sudo apt-get update && sudo apt-get install -y git python3-pip patchelf fakeroot gettext lynx
           sudo -H pip3 install git+https://github.com/AppImageCrafters/appimage-builder.git
           arch=$(uname -m)
           sudo wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-${arch}.AppImage -O /usr/bin/appimagetool
