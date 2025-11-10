@@ -3,7 +3,7 @@ set -xe
 
 rm -f Chirp-*-*.AppImage
 
-ver_with_next=$(basename $(curl -H "User-Agent: goldstar611" -Ls -o/dev/null -w '%{url_effective}' https://archive.chirpmyradio.com/download?stream=next))
+ver_with_next=$(basename $(curl -H "User-Agent: goldstar611" -Ls -o/dev/null -w '%{url_effective}' "https://archive.chirpmyradio.com/download?stream=next"))
 ver_without_next=${ver_with_next//next-/}
 export CHIRP_VERSION=${ver_with_next}
 curl -H "User-Agent: goldstar611" -o chirp-${ver_without_next}-py3-none-any.whl https://archive.chirpmyradio.com/chirp_next/${ver_with_next}/chirp-${ver_without_next}-py3-none-any.whl
