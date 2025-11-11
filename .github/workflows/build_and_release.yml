@@ -52,15 +52,18 @@ jobs:
 
           artifacts=Chirp-*.AppImage
 
-          # The following command is expected to fail if the release does not exist
-          # Set the appropriate shell option so the script continues
+          # The `gh release view` command returns a non-zero exit code if the release tag does not exist.
+          # Set the appropriate shell option so the script continues.
           set +e
+
           gh release view ${ver_with_next}
-          set -e
-          
           if [ $? -eq 0 ]; then
             echo "Release exists, exiting."
+            exit 0
           fi
+
+          # Turn error checking back on after the exit code has been checked
+          set -e
 
           gh release create --latest ${ver_with_next} -t ${ver_with_next} ${artifacts} --notes ""
           gh release upload ${ver_with_next} ${artifacts}
