@@ -52,7 +52,11 @@ jobs:
 
           artifacts=Chirp-*.AppImage
 
-          release_info=$(gh release view ${ver_with_next})
+          # The following command is expected to fail if the release does not exist
+          # Set the appropriate shell option so the script continues
+          set +e
+          gh release view ${ver_with_next}
+          set -e
           
           if [ $? -eq 0 ]; then
             echo "Release exists, exiting."
