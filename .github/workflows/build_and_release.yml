@@ -1,7 +1,11 @@
 name: build_and_release
 
 on:
+  schedule:
+    - cron: '06 11 * * *'
+
   workflow_dispatch:
+
   # Allows Dan to trigger synchronization,
   # which then triggers snaps to build
   repository_dispatch:
@@ -38,14 +42,20 @@ jobs:
           GH_REPO: ${{ github.repository }}
           GH_TOKEN: ${{ github.token }}
         run: |
+          if [[ -z "${GITHUB_WORKSPACE}" ]]; then
+            # Use curl if not github.com actions not detected
+            ver_with_next=$(basename $(curl -L -s -o /dev/null -w '%{url_effective}' "https://archive.chirpmyradio.com/download?stream=next"))
+          else
+            # If github.com actions is detected, use the scriptable console-based lynx browser
+            ver_with_next=$(basename $(lynx -dump -noredir -head "https://archive.chirpmyradio.com/download?stream=next" | grep -E -o 'https://.*chirp.*$'))
+          fi
+
           artifacts=Chirp-*.AppImage
-          tag=$(date +%Y%m%d)
 
-          #(cd chirp; git log -5 > ../last_5_commits.txt)
-          #gh release create --latest ${tag} -t ${tag} -F last_5_commits.txt ${artifacts}
-          gh release create --latest ${tag} -t ${tag} ${artifacts}
+          gh release view ${ver_with_next}
+          if [ $? -eq 0 ]; then
+            echo "Release exists, exiting."
+          fi
 
-          #if(!($?)) {
-          #  # gh release create failed, try gh release upload instead
-          #  gh release upload --clobber ${tag} ${artifacts}
-          #}
+          gh release create --latest ${ver_with_next} -t ${ver_with_next} ${artifacts} --notes ""
+          gh release upload ${ver_with_next} ${artifacts}
