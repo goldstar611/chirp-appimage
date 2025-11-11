@@ -13,7 +13,14 @@ fi
 
 ver_without_next=${ver_with_next//next-/}
 export CHIRP_VERSION=${ver_with_next}
-curl -o chirp-${ver_without_next}-py3-none-any.whl https://archive.chirpmyradio.com/chirp_next/${ver_with_next}/chirp-${ver_without_next}-py3-none-any.whl
+
+if [[ -z "${GITHUB_WORKSPACE}" ]]; then
+  # Use curl if not github.com actions not detected
+  curl -o chirp-${ver_without_next}-py3-none-any.whl https://archive.chirpmyradio.com/chirp_next/${ver_with_next}/chirp-${ver_without_next}-py3-none-any.whl
+else
+  # If github.com actions is detected, use the scriptable console-based lynx browser
+  lynx -source "https://archive.chirpmyradio.com/chirp_next/${ver_with_next}/chirp-${ver_without_next}-py3-none-any.whl" > "chirp-${ver_without_next}-py3-none-any.whl"
+fi
 
 # x86_64 (64-bit Intel/AMD)
 export TARGET_ARCH_APT=amd64
