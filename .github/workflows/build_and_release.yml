@@ -73,4 +73,4 @@ jobs:
           tag="${{ env.VER_WITH_NEXT }}"
 
           gh release create --latest ${tag} -t ${tag} ${artifacts} --notes ""
-          gh release upload ${tag} ${artifacts}
+          #gh release upload ${tag} ${artifacts}
