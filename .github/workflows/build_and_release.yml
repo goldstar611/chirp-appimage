@@ -32,12 +32,7 @@ jobs:
           sudo wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-${arch}.AppImage -O /usr/bin/appimagetool
           sudo chmod +x /usr/bin/appimagetool
 
-      - name: Build AppImage
-        run: |
-          chmod +x ./build.sh
-          ./build.sh
-
-      - name: Release
+      - name: Check if Release Exists
         env:
           GH_REPO: ${{ github.repository }}
           GH_TOKEN: ${{ github.token }}
@@ -50,7 +45,8 @@ jobs:
             ver_with_next=$(basename $(lynx -dump -noredir -head "https://archive.chirpmyradio.com/download?stream=next" | grep -E -o 'https://.*chirp.*$'))
           fi
 
-          artifacts=Chirp-*.AppImage
+          # Save $ver_with_next for the Release job
+          echo "VER_WITH_NEXT=$ver_with_next" >> $GITHUB_ENV
 
           # The `gh release view` command returns a non-zero exit code if the release tag does not exist.
           # Set the appropriate shell option so the script continues.
@@ -62,8 +58,18 @@ jobs:
             exit 0
           fi
 
-          # Turn error checking back on after the exit code has been checked
-          set -e
+      - name: Build AppImage
+        run: |
+          chmod +x ./build.sh
+          ./build.sh
 
-          gh release create --latest ${ver_with_next} -t ${ver_with_next} ${artifacts} --notes ""
-          gh release upload ${ver_with_next} ${artifacts}
+      - name: Release
+        env:
+          GH_REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          artifacts=Chirp-*.AppImage
+          tag="${{ env.VER_WITH_NEXT }}"
+
+          gh release create --latest ${tag} -t ${tag} ${artifacts} --notes ""
+          gh release upload ${tag} ${artifacts}
