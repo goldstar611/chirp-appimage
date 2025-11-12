@@ -54,8 +54,9 @@ jobs:
 
           gh release view ${ver_with_next}
           if [ $? -eq 0 ]; then
-            echo "Release exists, exiting."
-            exit 0
+            echo "Release exists."
+            gh run cancel ${{ github.run_id }}
+            gh run watch ${{ github.run_id }}
           fi
 
       - name: Build AppImage
