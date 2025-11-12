@@ -33,6 +33,7 @@ jobs:
           sudo chmod +x /usr/bin/appimagetool
 
       - name: Check if Release Exists
+        id: release_exists
         env:
           GH_REPO: ${{ github.repository }}
           GH_TOKEN: ${{ github.token }}
@@ -54,17 +55,19 @@ jobs:
 
           gh release view ${ver_with_next}
           if [ $? -eq 0 ]; then
-            echo "Release exists."
-            gh run cancel ${{ github.run_id }}
-            gh run watch ${{ github.run_id }}
+            echo "RELEASE_EXISTS=true" >> $GITHUB_ENV
+          else
+            echo "RELEASE_EXISTS=false" >> $GITHUB_ENV
           fi
 
       - name: Build AppImage
+        if: ${{ env.RELEASE_EXISTS == 'false' }}
         run: |
           chmod +x ./build.sh
           ./build.sh
 
       - name: Release
+        if: ${{ env.RELEASE_EXISTS == 'false' }}
         env:
           GH_REPO: ${{ github.repository }}
           GH_TOKEN: ${{ github.token }}
