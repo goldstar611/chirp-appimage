@@ -6,26 +6,17 @@ on:
 
   workflow_dispatch:
 
-  # Allows Dan to trigger synchronization,
-  # which then triggers snaps to build
-  repository_dispatch:
-    types: dan-says-build
-
 jobs:
   build:
     runs-on: ubuntu-22.04
 
     steps:
-      - uses: actions/checkout@v3
-
-      - name: Set Timezone
-        run: |
-          # Set timezone to America/Los_Angeles so the build date is aligned with official builds
-          sudo sudo ln -sf /usr/share/zoneinfo/America/Los_Angeles /etc/localtime
+      - uses: actions/checkout@v5
 
       - name: Install dependencies
         run: |
-          sudo apt-get update && sudo apt-get install -y git python3-pip patchelf fakeroot gettext lynx
+          sudo apt update
+          sudo apt install -y git python3-pip patchelf fakeroot gettext lynx
           sudo -H pip3 install pyopenssl --upgrade
           sudo -H pip3 install git+https://github.com/AppImageCrafters/appimage-builder.git
           arch=$(uname -m)
@@ -49,7 +40,7 @@ jobs:
           # Save $ver_with_next for the Release job
           echo "VER_WITH_NEXT=$ver_with_next" >> $GITHUB_ENV
 
-          # The `gh release view` command returns a non-zero exit code if the release tag does not exist.
+          # The `gh release view` command returns a non-zero exit code if the release does not exist.
           # Set the appropriate shell option so the script continues.
           set +e
 
@@ -76,4 +67,3 @@ jobs:
           tag="${{ env.VER_WITH_NEXT }}"
 
           gh release create --latest ${tag} -t ${tag} ${artifacts} --notes ""
-          #gh release upload ${tag} ${artifacts}
