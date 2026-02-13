@@ -3,24 +3,13 @@ set -xe
 
 rm -f Chirp-*-*.AppImage
 
-if [[ -z "${GITHUB_WORKSPACE}" ]]; then
-  # Use curl if not github.com actions not detected
-  ver_with_next=$(basename $(curl -L -s -o /dev/null -w '%{url_effective}' "https://archive.chirpmyradio.com/download?stream=next"))
-else
-  # If github.com actions is detected, use the scriptable console-based lynx browser
-  ver_with_next=$(basename $(lynx -dump -noredir -head "https://archive.chirpmyradio.com/download?stream=next" | grep -E -o 'https://.*chirp.*$'))
-fi
+ver_with_next=$(basename $(curl -H "User-Agent: goldstar611" -L -s -o /dev/null -w '%{url_effective}' "https://archive.chirpmyradio.com/download?stream=next"))
 
 ver_without_next=${ver_with_next//next-/}
 export CHIRP_VERSION=${ver_with_next}
 
-if [[ -z "${GITHUB_WORKSPACE}" ]]; then
-  # Use curl if not github.com actions not detected
-  curl -o chirp-${ver_without_next}-py3-none-any.whl https://archive.chirpmyradio.com/chirp_next/${ver_with_next}/chirp-${ver_without_next}-py3-none-any.whl
-else
-  # If github.com actions is detected, use the scriptable console-based lynx browser
-  lynx -source "https://archive.chirpmyradio.com/chirp_next/${ver_with_next}/chirp-${ver_without_next}-py3-none-any.whl" > "chirp-${ver_without_next}-py3-none-any.whl"
-fi
+curl -H "User-Agent: goldstar611" -o chirp-${ver_without_next}-py3-none-any.whl https://archive.chirpmyradio.com/chirp_next/${ver_with_next}/chirp-${ver_without_next}-py3-none-any.whl
+
 
 # x86_64 (64-bit Intel/AMD)
 export TARGET_ARCH_APT=amd64
