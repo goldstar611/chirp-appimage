@@ -3,13 +3,14 @@ set -xe
 
 rm -f Chirp-*-*.AppImage
 
-ver_with_next=$(basename $(curl -H "User-Agent: goldstar611" -L -s -o /dev/null -w '%{url_effective}' "https://archive.chirpmyradio.com/download?stream=next"))
+# Because Cloudflare...
+#ver_with_next=$(basename $(curl -H "User-Agent: goldstar611" -L -s -o /dev/null -w '%{url_effective}' "https://archive.chirpmyradio.com/download?stream=next"))
+#ver_without_next=${ver_with_next//next-/}
+#curl -H "User-Agent: goldstar611" -o chirp-${ver_without_next}-py3-none-any.whl https://archive.chirpmyradio.com/chirp_next/${ver_with_next}/chirp-${ver_without_next}-py3-none-any.whl
 
-ver_without_next=${ver_with_next//next-/}
+ver_with_next=$(python3 ./chirp_mirror_dl.py)
+mv ./s3downloads/*.whl ./
 export CHIRP_VERSION=${ver_with_next}
-
-curl -H "User-Agent: goldstar611" -o chirp-${ver_without_next}-py3-none-any.whl https://archive.chirpmyradio.com/chirp_next/${ver_with_next}/chirp-${ver_without_next}-py3-none-any.whl
-
 
 # x86_64 (64-bit Intel/AMD)
 export TARGET_ARCH_APT=amd64

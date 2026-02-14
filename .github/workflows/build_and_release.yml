@@ -16,8 +16,8 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt update
-          sudo apt install -y git python3-pip patchelf fakeroot gettext lynx
-          sudo -H pip3 install pyopenssl --upgrade
+          sudo apt install -y git python3-pip patchelf fakeroot gettext
+          sudo -H pip3 install pyopenssl boto3 --upgrade
           sudo -H pip3 install git+https://github.com/AppImageCrafters/appimage-builder.git
           arch=$(uname -m)
           sudo wget https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-${arch}.AppImage -O /usr/bin/appimagetool
@@ -33,8 +33,8 @@ jobs:
             # Use curl if not github.com actions not detected
             ver_with_next=$(basename $(curl -L -s -o /dev/null -w '%{url_effective}' "https://archive.chirpmyradio.com/download?stream=next"))
           else
-            # If github.com actions is detected, use the scriptable console-based lynx browser
-            ver_with_next=$(basename $(lynx -dump -noredir -head "https://archive.chirpmyradio.com/download?stream=next" | grep -E -o 'https://.*chirp.*$'))
+            # If github.com actions is detected, use alternate method to avoid Cloudflare blocks
+            ver_with_next=$(python3 ./chirp_mirror_version.py)
           fi
 
           # Save $ver_with_next for the Release job
